@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DefinexCase.Business.Models\DefinexCase.Business.Models.csproj" />
+    <ProjectReference Include="..\DefinexCase.Data.Repository\DefinexCase.Data.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

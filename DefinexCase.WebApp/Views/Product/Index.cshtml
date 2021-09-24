@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DefinexCase.WebApp.Models.Product.ProductModel>
+@{
+	ViewData["Title"] = "Products";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+	$(document).ready(function () {
+		$("[data-type=\"add-cart\"]").click(function () {
+
+			var _productId = $(this).attr("data-productid");
+			var _count = $("[data-type=\"checkbox\"][data-productid=\"" + _productId + "\"]").val();
+			$.ajax({
+				url: '/Cart/Add',
+				type: "POST",
+				dataType: "html",
+				data: {
+					count: _count,
+					productId: _productId
+				},
+				success: function (data) {
+					alert("Sepete Eklendi");
+				}
+			});
+
+		});
+	});
+
+</script>
+<div class="text-center">
+	<h1 class="display-5">Ürünler</h1>
+	<hr />
+	<div class="row">
+
+		@foreach (var list in Model)
+		{
+
+			<div class="column">
+				<div class="card">
+					<h3>@list.product_name</h3>
+					<p>@list.product_price TL</p>
+						@if (list.discount)
+						{
+							<p style="color:red;">1 Alana 1 Bedava</p>
+						}
+						else { 
+							<p>-----------</p>
+						}
+					<input id="count" data-type="checkbox" data-productid="@list.product_id" type="number" min="1" max="15" value="1" />
+					<p><button data-type="add-cart" data-productid="@list.product_id">Sepete Ekle</button></p>
+
+				</div>
+			</div>
+		}
+	</div>
+
+</div>
+

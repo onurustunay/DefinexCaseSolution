@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DefinexCase.WebApp.Models.Product.ProductModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<p>
+    <a asp-action="Create">Yeni Ürün Oluştur</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ürün No
+            </th>
+            <th>
+                Ürün Adı
+            </th>
+            <th>
+                Ürün Fiyatı
+            </th>
+            <th>
+                Bir alana bir bedava!
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product_price) TL
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.discount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.product_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.product_id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

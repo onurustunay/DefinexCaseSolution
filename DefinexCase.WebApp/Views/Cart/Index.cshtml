@@ -1,0 +1,84 @@
+﻿@model IEnumerable<DefinexCase.WebApp.Models.Cart.CartItemModel>
+
+@{
+	ViewData["Title"] = "Index";
+
+	string total_price = TempData["total_price"].ToString();
+	string discount_type = TempData["discount_type"].ToString();
+	string discount_price = TempData["discount_price"].ToString();
+	string created_date = TempData["created_date"].ToString();
+	string status = TempData["status"].ToString();
+	string payment_total = TempData["payment_total"].ToString();
+
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Sepet</h2>
+
+<div class="col-md-12" >
+	<div class="col-md-12">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Ürün Adı
+					</th>
+					<th>
+						Ürün Adedi
+					</th>
+					<th>
+						Birim Fiyatı
+					</th>
+					<th>
+						Toplam Fiyat
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+
+						<td>
+							@Html.DisplayFor(modelItem => item.product_name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.quantity) Adet
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.unit_price) TL
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.total_price) TL
+						</td>
+
+						<td>
+							@Html.ActionLink("Sil", "Delete", new { id = item.product_id })
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+	<hr />
+	<div class="col-md-4">
+		<h5>Sepet Tutarı: @total_price TL</h5>
+		@if (discount_type == "1")
+		{
+			<h6 style="color:red;">1000 TL üzeri alışverişte %20 indirim.</h6>
+			<h5>İndirim Tutarı: @discount_price TL</h5>
+		}
+		else if (discount_type == "2")
+		{
+			<h6 style="color:red;">Aynı üründen her 3 adette %15 indirim.</h6>
+			<h5>İndirim Tutarı: @discount_price TL</h5>
+		}
+		else if (discount_type == "3")
+		{
+			<h6 style="color:red;">1 Alana 1 Bedava Kampanyası</h6>
+			<h5>İndirim Tutarı: @discount_price TL</h5>
+		}
+		<h5>Ödeme Tutarı: @payment_total TL</h5>
+	</div>
+</div>

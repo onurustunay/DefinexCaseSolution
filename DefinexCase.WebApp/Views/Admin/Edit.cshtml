@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DefinexCase.WebApp.Models.Product.ProductModel>
+
+@{
+	ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h4>Ürün Güncelle</h4>
+@if (Convert.ToBoolean(TempData["UpdateResponse"]))
+{
+	<span class="text-success">Başarılı!</span>
+}
+
+<hr />
+@foreach (var item in Model)
+{
+	<div class="row">
+		<div class="col-md-4">
+			<form asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="form-group">
+					<label asp-for="@item.product_name" class="control-label">Ürün Adı:</label>
+					<input asp-for="@item.product_name" class="form-control" maxlength="30" required/>
+					<span asp-validation-for="@item.product_name" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="@item.product_price" class="control-label">Ürün Fiyatı:</label>
+					<input asp-for="@item.product_price" value="@item.product_price" min="1" max="100000" class="form-control" required/>
+					<span asp-validation-for="@item.product_price" class="text-danger"></span>
+				</div>
+				<div class="form-group form-check">
+					<label class="form-check-label">
+						<input type="checkbox" asp-for="@item.discount" /> Bir Alana Bir Bedava?
+					</label>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Kaydet" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+	</div>
+}
+<div>
+	<a asp-action="Index">Listeye Geri Dön</a>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
